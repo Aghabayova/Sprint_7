@@ -9,14 +9,18 @@
 ## 1. Courier Creation
 
 **test_create_courier - Verify a courier can be created successfully.**
+
 **test_create_duplicate_courier - Verify creating a courier with an existing login fails.**
+
 **test_create_courier_without_credentials - Verify the system returns an error if required fields are missing.** 
 
 
 ## 2. Courier Login
 
 **test_courier_login - Verify a courier can login with valid credentials.**
+
 **test_courier_login_without_credentials - Verify login fails if required fields are missing.**
+
 **test_courier_login_non_existent - Verify login fails for a courier that does not exist.**
 
 
