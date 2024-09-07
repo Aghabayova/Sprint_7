@@ -10,8 +10,8 @@ class TestLoginCourier:
     def test_courier_login(self, create_and_delete_courier):
         payload = {"login": create_and_delete_courier[1][0],
                    "password": create_and_delete_courier[1][1]}
-        r = requests.post(APILinks.MAIN_URL + APILinks.LOGIN_URL, data=payload)
-        assert r.status_code == 200 and 'id' in r.json()
+        response = requests.post(APILinks.MAIN_URL + APILinks.LOGIN_URL, data=payload)
+        assert response.status_code == 200 and 'id' in response.json()
 
     @allure.title('Login fails if required fields are missing')
     @pytest.mark.parametrize('courier_data', (
@@ -20,13 +20,13 @@ class TestLoginCourier:
             CourierData.only_password))
     def test_courier_login_without_credentials(self, courier_data):
         payload = courier_data
-        r = requests.post(APILinks.MAIN_URL + APILinks.LOGIN_URL, data=payload)
+        response = requests.post(APILinks.MAIN_URL + APILinks.LOGIN_URL, data=payload)
 
-        assert r.status_code == 400 and r.json()['message'] == StatusMessage.text_login_400
+        assert response.status_code == 400 and response.json()['message'] == StatusMessage.TEXT_LOGIN_400
 
     @allure.title('Login fails for a courier that does not exist.')
     def test_courier_login_non_existent(self, create_and_delete_courier):
         payload = {"login": create_and_delete_courier[1][1],
                    "password": create_and_delete_courier[1][0]}
-        r = requests.post(APILinks.MAIN_URL + APILinks.LOGIN_URL, data=payload)
-        assert r.status_code == 404 and r.json()['message'] == StatusMessage.text_login_404
+        response = requests.post(APILinks.MAIN_URL + APILinks.LOGIN_URL, data=payload)
+        assert response.status_code == 404 and response.json()['message'] == StatusMessage.TEXT_LOGIN_404
